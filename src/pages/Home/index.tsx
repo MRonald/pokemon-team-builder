@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import * as S from "./styles";
+import { CreateTeam } from "../../components/CreateTeam";
 
 export const Home: React.FC = () => {
   const [activeTab, setActiveTab] = useState<"create" | "list">("list");
@@ -18,6 +19,8 @@ export const Home: React.FC = () => {
           )}
         </nav>
       </S.Header>
+
+      {activeTab === "list" ? <CreateTeam /> : <CreateTeam />}
     </S.Home>
   );
 };

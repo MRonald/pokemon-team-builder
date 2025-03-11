@@ -9,7 +9,7 @@ const GlobalStyle = createGlobalStyle`
 
   body {
     font-family: 'Arial', sans-serif;
-    background-color: #f5f5f5;
+    background-color: #E9EAEC;
     color: #333;
   }
 
