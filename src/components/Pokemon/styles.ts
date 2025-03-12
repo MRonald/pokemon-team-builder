@@ -24,6 +24,7 @@ const typeColors: Record<string, string> = {
 export const Container = styled.div`
   display: inline-block;
   position: relative;
+  min-width: 100%;
 `;
 
 export const NumberContainer = styled.div`
@@ -39,11 +40,16 @@ export const NumberContainer = styled.div`
   & > p {
     color: #fff;
     font-size: clamp(12px, 2vw, 18px);
+    font-weight: bold;
   }
 `;
 
 export const ImageContainer = styled.div`
   margin-top: 1rem;
+  max-height: 60%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const PokemonName = styled.p`
@@ -57,12 +63,11 @@ export const TypesContainer = styled.div`
   height: 0.3rem;
 
   & > *:not(:last-child) {
-    margin-right: 1px;
+    margin-right: 0.2rem;
   }
 `;
 
 export const TypeBadge = styled.div<{ type: string }>`
-  border-radius: 12px;
   color: white;
   font-weight: bold;
   background-color: ${({ type }) => typeColors[type] || "#ccc"};
