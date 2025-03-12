@@ -10,7 +10,7 @@ export const Header = styled.header`
   justify-content: end;
 
   background-color: #90adc6;
-  height: 15vh;
+  height: 13vh;
   padding: 0 1rem;
 `;
 

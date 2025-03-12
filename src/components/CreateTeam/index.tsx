@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as S from "./styles";
 import { Pokeball } from "../Pokeball";
 import { Pokemon } from "../Pokemon";
@@ -8,10 +8,24 @@ import check from "../../assets/imgs/check.svg";
 import checkOpacity from "../../assets/imgs/check-opacity.svg";
 import trash from "../../assets/imgs/trash.svg";
 import trashOpacity from "../../assets/imgs/trash-opacity.svg";
+import { pokeapi } from "../../services/pokeapi";
+import { PokemonSummary } from "../../types/pokeapi-types";
 
 export const CreateTeam: React.FC = () => {
   const [canCheck, setCanCheck] = useState<boolean>(false);
   const [canTrash, setCanTrash] = useState<boolean>(false);
+  const [pokemons, setPokemons] = useState<PokemonSummary[]>([]);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const response = await pokeapi.getPokemonList();
+        setPokemons(response.data.results);
+      } catch (error) {
+        console.error("Erro ao buscar pokémons:", error);
+      }
+    })();
+  }, []);
 
   return (
     <S.Container>
@@ -48,9 +62,11 @@ export const CreateTeam: React.FC = () => {
         <p>Choose 6 Pokémons:</p>
       </S.TextLabel>
 
-      <div>
-        <Pokemon />
-      </div>
+      <S.PokemonsContainer>
+        {pokemons.map((pokemon) => (
+          <Pokemon name={pokemon.name} url={pokemon.url} key={pokemon.name} />
+        ))}
+      </S.PokemonsContainer>
     </S.Container>
   );
 };

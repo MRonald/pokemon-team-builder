@@ -45,3 +45,13 @@ export const ActionButtons = styled.div`
     margin-left: 1rem;
   }
 `;
+
+export const PokemonsContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  padding: 1rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 40vh;
+`;
