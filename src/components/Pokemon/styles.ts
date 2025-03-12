@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const typeColors: Record<string, string> = {
+export const typeColors: Record<string, string> = {
   bug: "#89960B",
   dark: "#322C26",
   dragon: "#6B57D2",

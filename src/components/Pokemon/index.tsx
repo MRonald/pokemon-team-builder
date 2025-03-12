@@ -6,7 +6,11 @@ import { capitalize } from "../../utils/text";
 
 import loader from "../../assets/imgs/loader.svg";
 
-export const Pokemon: React.FC<PokemonSummary> = ({ name, url }) => {
+interface PokemonProps extends PokemonSummary {
+  onClick?: () => void;
+}
+
+export const Pokemon: React.FC<PokemonProps> = ({ name, url, onClick }) => {
   const [pokemon, setPokemon] = useState<PokemonDetailed>();
 
   useEffect(() => {
@@ -14,7 +18,6 @@ export const Pokemon: React.FC<PokemonSummary> = ({ name, url }) => {
       try {
         const response = await pokeapi.getPokemonDetails(name);
         setPokemon(response.data);
-        console.log(response.data);
       } catch (error) {
         console.error("Erro ao buscar pokémon:", error);
       }
@@ -22,7 +25,7 @@ export const Pokemon: React.FC<PokemonSummary> = ({ name, url }) => {
   }, [name]);
 
   return (
-    <S.Container>
+    <S.Container onClick={onClick}>
       {pokemon ? (
         <>
           <S.NumberContainer>

@@ -15,13 +15,19 @@ import trashOpacity from "../../assets/imgs/trash-opacity.svg";
 export const CreateTeam: React.FC = () => {
   const [canCheck, setCanCheck] = useState<boolean>(false);
   const [canTrash, setCanTrash] = useState<boolean>(false);
+  const [page, setPage] = useState<number>(0);
+  const [hasMore, setHasMore] = useState<boolean>(true);
+
   const [pokemons, setPokemons] = useState<PokemonSummary[]>([]);
-  const [page, setPage] = useState(0);
-  const [hasMore, setHasMore] = useState(true);
+  const [team, setTeam] = useState<PokemonSummary[]>([]);
 
   useEffect(() => {
     fetchPokemons();
   }, []);
+
+  useEffect(() => {
+    setCanCheck(team.length === 6);
+  }, [team]);
 
   async function fetchPokemons() {
     try {
@@ -45,6 +51,16 @@ export const CreateTeam: React.FC = () => {
     }
   }
 
+  function addOnTeam(name: string) {
+    if (team.length === 6) return;
+
+    const selectedPokemon = pokemons.find((pokemon) => pokemon.name === name);
+
+    if (!selectedPokemon) return;
+
+    setTeam((prev) => [...prev, selectedPokemon]);
+  }
+
   return (
     <S.Container>
       <S.TextLabel>
@@ -53,23 +69,23 @@ export const CreateTeam: React.FC = () => {
       </S.TextLabel>
 
       <S.PokeballsLeft>
-        <Pokeball />
-        <Pokeball />
-        <Pokeball />
+        <Pokeball pokemon={team[0]} />
+        <Pokeball pokemon={team[1]} />
+        <Pokeball pokemon={team[2]} />
       </S.PokeballsLeft>
       <S.PokeballsRight>
-        <Pokeball />
-        <Pokeball />
-        <Pokeball />
+        <Pokeball pokemon={team[3]} />
+        <Pokeball pokemon={team[4]} />
+        <Pokeball pokemon={team[5]} />
       </S.PokeballsRight>
 
       <S.ActionButtons>
-        {canCheck ? (
+        {canTrash ? (
           <img src={trash} alt="trash" />
         ) : (
           <img src={trashOpacity} alt="trashOpacity" />
         )}
-        {canTrash ? (
+        {canCheck ? (
           <img src={check} alt="check" />
         ) : (
           <img src={checkOpacity} alt="checkOpacity" />
@@ -89,7 +105,12 @@ export const CreateTeam: React.FC = () => {
       >
         <S.PokemonsContainer id="pokemons-container">
           {pokemons.map((pokemon) => (
-            <Pokemon name={pokemon.name} url={pokemon.url} key={pokemon.name} />
+            <Pokemon
+              name={pokemon.name}
+              url={pokemon.url}
+              key={pokemon.name}
+              onClick={() => addOnTeam(pokemon.name)}
+            />
           ))}
         </S.PokemonsContainer>
       </InfiniteScroll>
