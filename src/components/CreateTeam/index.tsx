@@ -19,7 +19,8 @@ export const CreateTeam: React.FC = () => {
   const [hasMore, setHasMore] = useState<boolean>(true);
 
   const [pokemons, setPokemons] = useState<PokemonSummary[]>([]);
-  const [team, setTeam] = useState<PokemonSummary[]>([]);
+  const [team, setTeam] = useState<(PokemonSummary | undefined)[]>([]);
+  const [selectedPokemon, setSelectedPokemon] = useState<number>();
 
   useEffect(() => {
     fetchPokemons();
@@ -28,6 +29,10 @@ export const CreateTeam: React.FC = () => {
   useEffect(() => {
     setCanCheck(team.length === 6);
   }, [team]);
+
+  useEffect(() => {
+    setCanTrash(selectedPokemon !== undefined);
+  }, [selectedPokemon]);
 
   async function fetchPokemons() {
     try {
@@ -51,7 +56,7 @@ export const CreateTeam: React.FC = () => {
     }
   }
 
-  function addOnTeam(name: string) {
+  function addPokemon(name: string) {
     if (team.length === 6) return;
 
     const selectedPokemon = pokemons.find((pokemon) => pokemon.name === name);
@@ -59,6 +64,26 @@ export const CreateTeam: React.FC = () => {
     if (!selectedPokemon) return;
 
     setTeam((prev) => [...prev, selectedPokemon]);
+  }
+
+  function selectPokemon(index: number) {
+    if (!team[index]) return;
+
+    if (selectedPokemon === index) {
+      setSelectedPokemon(undefined);
+    } else {
+      setSelectedPokemon(index);
+    }
+  }
+
+  function removePokemon() {
+    if (!canTrash || selectedPokemon === undefined) return;
+
+    setTeam((prevTeam) =>
+      prevTeam.filter((_, index) => index !== selectedPokemon)
+    );
+
+    setSelectedPokemon(undefined);
   }
 
   return (
@@ -69,27 +94,60 @@ export const CreateTeam: React.FC = () => {
       </S.TextLabel>
 
       <S.PokeballsLeft>
-        <Pokeball pokemon={team[0]} />
-        <Pokeball pokemon={team[1]} />
-        <Pokeball pokemon={team[2]} />
+        <Pokeball
+          key={`${team[0]?.name}-pokeball-0`}
+          pokemon={team[0]}
+          onClick={() => selectPokemon(0)}
+          tabIndex={0}
+          isSelected={selectedPokemon === 0}
+        />
+        <Pokeball
+          key={`${team[1]?.name}-pokeball-1`}
+          pokemon={team[1]}
+          onClick={() => selectPokemon(1)}
+          tabIndex={1}
+          isSelected={selectedPokemon === 1}
+        />
+        <Pokeball
+          key={`${team[2]?.name}-pokeball-2`}
+          pokemon={team[2]}
+          onClick={() => selectPokemon(2)}
+          tabIndex={2}
+          isSelected={selectedPokemon === 2}
+        />
       </S.PokeballsLeft>
       <S.PokeballsRight>
-        <Pokeball pokemon={team[3]} />
-        <Pokeball pokemon={team[4]} />
-        <Pokeball pokemon={team[5]} />
+        <Pokeball
+          key={`${team[3]?.name}-pokeball-3`}
+          pokemon={team[3]}
+          onClick={() => selectPokemon(3)}
+          tabIndex={3}
+          isSelected={selectedPokemon === 3}
+        />
+        <Pokeball
+          key={`${team[4]?.name}-pokeball-4`}
+          pokemon={team[4]}
+          onClick={() => selectPokemon(4)}
+          tabIndex={4}
+          isSelected={selectedPokemon === 4}
+        />
+        <Pokeball
+          key={`${team[5]?.name}-pokeball-5`}
+          pokemon={team[5]}
+          onClick={() => selectPokemon(5)}
+          tabIndex={5}
+          isSelected={selectedPokemon === 5}
+        />
       </S.PokeballsRight>
 
       <S.ActionButtons>
-        {canTrash ? (
-          <img src={trash} alt="trash" />
-        ) : (
-          <img src={trashOpacity} alt="trashOpacity" />
-        )}
-        {canCheck ? (
-          <img src={check} alt="check" />
-        ) : (
-          <img src={checkOpacity} alt="checkOpacity" />
-        )}
+        <img
+          src={canTrash ? trash : trashOpacity}
+          alt="trash"
+          tabIndex={6}
+          onClick={removePokemon}
+        />
+        <img src={canCheck ? check : checkOpacity} alt="check" tabIndex={7} />
       </S.ActionButtons>
 
       <S.TextLabel>
@@ -109,7 +167,7 @@ export const CreateTeam: React.FC = () => {
               name={pokemon.name}
               url={pokemon.url}
               key={pokemon.name}
-              onClick={() => addOnTeam(pokemon.name)}
+              onClick={() => addPokemon(pokemon.name)}
             />
           ))}
         </S.PokemonsContainer>

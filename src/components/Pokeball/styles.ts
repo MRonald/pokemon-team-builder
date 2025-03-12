@@ -1,8 +1,16 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
+export const Container = styled.div<{ isSelected: boolean }>`
   position: relative;
   width: 5rem;
+  transition: transform 0.2s ease-out;
+
+  ${({ isSelected }) =>
+    isSelected &&
+    `
+      transform: scale(1.2);
+      outline: none;
+  `}
 
   & > img {
     position: absolute;

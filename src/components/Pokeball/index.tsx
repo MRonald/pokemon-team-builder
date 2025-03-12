@@ -6,9 +6,17 @@ import { pokeapi } from "../../services/pokeapi";
 
 interface PokeballProps {
   pokemon?: PokemonSummary;
+  onClick?: () => void;
+  tabIndex?: number;
+  isSelected?: boolean;
 }
 
-export const Pokeball: React.FC<PokeballProps> = ({ pokemon }) => {
+export const Pokeball: React.FC<PokeballProps> = ({
+  pokemon,
+  onClick,
+  tabIndex,
+  isSelected,
+}) => {
   const [pokemonDetailed, setPokemonDetailed] = useState<PokemonDetailed>();
 
   useEffect(() => {
@@ -26,7 +34,11 @@ export const Pokeball: React.FC<PokeballProps> = ({ pokemon }) => {
   }, [pokemon]);
 
   return (
-    <S.Container>
+    <S.Container
+      onClick={onClick}
+      tabIndex={tabIndex}
+      isSelected={isSelected ?? false}
+    >
       <svg
         width="69"
         height="70"
