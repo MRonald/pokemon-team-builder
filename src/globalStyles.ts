@@ -34,7 +34,7 @@ const GlobalStyle = createGlobalStyle`
 
   hr {
     border: 0;
-    border-top: 2px solid white;
+    border-top: 1px solid #333652;
   }
 `;
 

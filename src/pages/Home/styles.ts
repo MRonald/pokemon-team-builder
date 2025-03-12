@@ -12,6 +12,10 @@ export const Header = styled.header`
   background-color: #90adc6;
   height: 13vh;
   padding: 0 1rem;
+
+  & > hr {
+    border-top: 1px solid white;
+  }
 `;
 
 export const Label = styled.p`
