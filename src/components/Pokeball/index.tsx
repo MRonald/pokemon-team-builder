@@ -3,6 +3,7 @@ import * as S from "./styles";
 import { typeColors } from "../Pokemon/styles";
 import { PokemonDetailed, PokemonSummary } from "../../types/pokeapi-types";
 import { pokeapi } from "../../services/pokeapi";
+import { toast } from "react-toastify";
 
 interface PokeballProps {
   pokemon?: PokemonSummary;
@@ -26,9 +27,9 @@ export const Pokeball: React.FC<PokeballProps> = ({
       try {
         const response = await pokeapi.getPokemonDetails(pokemon?.name);
         setPokemonDetailed(response.data);
-        console.log(response);
       } catch (error) {
-        console.error("Erro ao buscar pokémon:", error);
+        toast.error("Error while fetching");
+        console.error("Error while fetching:", error);
       }
     })();
   }, [pokemon]);

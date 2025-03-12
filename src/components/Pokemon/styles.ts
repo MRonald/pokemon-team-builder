@@ -25,6 +25,16 @@ export const Container = styled.div`
   display: inline-block;
   position: relative;
   min-width: 100%;
+
+  & > .check-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    width: 60%;
+    opacity: 0.85;
+  }
 `;
 
 export const NumberContainer = styled.div`
