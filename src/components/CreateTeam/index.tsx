@@ -4,6 +4,7 @@ import { Pokeball } from "../Pokeball";
 import { Pokemon } from "../Pokemon";
 import { pokeapi } from "../../services/pokeapi";
 import { PokemonSummary } from "../../types/pokeapi-types";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 import pencil from "../../assets/imgs/pencil.svg";
 import check from "../../assets/imgs/check.svg";
@@ -15,17 +16,34 @@ export const CreateTeam: React.FC = () => {
   const [canCheck, setCanCheck] = useState<boolean>(false);
   const [canTrash, setCanTrash] = useState<boolean>(false);
   const [pokemons, setPokemons] = useState<PokemonSummary[]>([]);
+  const [page, setPage] = useState(0);
+  const [hasMore, setHasMore] = useState(true);
 
   useEffect(() => {
-    (async () => {
-      try {
-        const response = await pokeapi.getPokemonList();
-        setPokemons(response.data.results);
-      } catch (error) {
-        console.error("Erro ao buscar pokémons:", error);
-      }
-    })();
+    fetchPokemons();
   }, []);
+
+  async function fetchPokemons() {
+    try {
+      const response = await pokeapi.getPokemonList(20, page * 20);
+      const newPokemons = response.data.results;
+
+      if (page === 0) {
+        setPokemons(newPokemons);
+        setPage(1);
+      } else {
+        setPokemons((prev) => [...prev, ...newPokemons]);
+        setPage((prev) => prev + 1);
+      }
+
+      if (!response.data.next) {
+        setHasMore(false);
+      }
+    } catch (error) {
+      console.error("Erro ao buscar pokémons:", error);
+      setHasMore(false);
+    }
+  }
 
   return (
     <S.Container>
@@ -62,11 +80,19 @@ export const CreateTeam: React.FC = () => {
         <p>Choose 6 Pokémons:</p>
       </S.TextLabel>
 
-      <S.PokemonsContainer>
-        {pokemons.map((pokemon) => (
-          <Pokemon name={pokemon.name} url={pokemon.url} key={pokemon.name} />
-        ))}
-      </S.PokemonsContainer>
+      <InfiniteScroll
+        dataLength={pokemons.length}
+        next={fetchPokemons}
+        hasMore={hasMore}
+        loader={null}
+        scrollableTarget="pokemons-container"
+      >
+        <S.PokemonsContainer id="pokemons-container">
+          {pokemons.map((pokemon) => (
+            <Pokemon name={pokemon.name} url={pokemon.url} key={pokemon.name} />
+          ))}
+        </S.PokemonsContainer>
+      </InfiniteScroll>
     </S.Container>
   );
 };
