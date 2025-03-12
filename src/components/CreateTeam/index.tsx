@@ -2,14 +2,14 @@ import React, { useEffect, useState } from "react";
 import * as S from "./styles";
 import { Pokeball } from "../Pokeball";
 import { Pokemon } from "../Pokemon";
+import { pokeapi } from "../../services/pokeapi";
+import { PokemonSummary } from "../../types/pokeapi-types";
 
 import pencil from "../../assets/imgs/pencil.svg";
 import check from "../../assets/imgs/check.svg";
 import checkOpacity from "../../assets/imgs/check-opacity.svg";
 import trash from "../../assets/imgs/trash.svg";
 import trashOpacity from "../../assets/imgs/trash-opacity.svg";
-import { pokeapi } from "../../services/pokeapi";
-import { PokemonSummary } from "../../types/pokeapi-types";
 
 export const CreateTeam: React.FC = () => {
   const [canCheck, setCanCheck] = useState<boolean>(false);

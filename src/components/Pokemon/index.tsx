@@ -4,6 +4,8 @@ import { PokemonDetailed, PokemonSummary } from "../../types/pokeapi-types";
 import { pokeapi } from "../../services/pokeapi";
 import { capitalize } from "../../utils/text";
 
+import loader from "../../assets/imgs/loader.svg";
+
 export const Pokemon: React.FC<PokemonSummary> = ({ name, url }) => {
   const [pokemon, setPokemon] = useState<PokemonDetailed>();
 
@@ -21,18 +23,24 @@ export const Pokemon: React.FC<PokemonSummary> = ({ name, url }) => {
 
   return (
     <S.Container>
-      <S.NumberContainer>
-        <p>#{pokemon?.id}</p>
-      </S.NumberContainer>
-      <S.ImageContainer>
-        <img src={pokemon?.sprites.front_default} alt={pokemon?.name} />
-      </S.ImageContainer>
-      <S.PokemonName>{capitalize(pokemon?.name)}</S.PokemonName>
-      <S.TypesContainer>
-        {pokemon?.types.map((type, index) => (
-          <S.TypeBadge key={index} type={type.type.name}></S.TypeBadge>
-        ))}
-      </S.TypesContainer>
+      {pokemon ? (
+        <>
+          <S.NumberContainer>
+            <p>#{pokemon?.id}</p>
+          </S.NumberContainer>
+          <S.ImageContainer>
+            <img src={pokemon?.sprites.front_default} alt={pokemon?.name} />
+          </S.ImageContainer>
+          <S.PokemonName>{capitalize(pokemon?.name)}</S.PokemonName>
+          <S.TypesContainer>
+            {pokemon?.types.map((type, index) => (
+              <S.TypeBadge key={index} type={type.type.name}></S.TypeBadge>
+            ))}
+          </S.TypesContainer>
+        </>
+      ) : (
+        <img src={loader} alt="loader" />
+      )}
     </S.Container>
   );
 };
