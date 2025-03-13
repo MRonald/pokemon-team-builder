@@ -4,7 +4,7 @@ import { CreateTeam } from "../../components/CreateTeam";
 import { ListTeams } from "../../components/ListTeams";
 
 export const Home: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<"create" | "list">("list");
+  const [activeTab, setActiveTab] = useState<"create" | "list">("create");
 
   return (
     <S.Home>
