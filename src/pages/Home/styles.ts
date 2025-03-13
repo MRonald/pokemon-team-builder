@@ -25,3 +25,27 @@ export const Label = styled.p`
   font-size: 1.5rem;
   margin: 0.5rem 0;
 `;
+
+export const MainContainer = styled.div`
+  margin: auto;
+
+  @media (max-width: 1920px) {
+    width: 25vw;
+  }
+
+  @media (max-width: 1600px) {
+    width: 30vw;
+  }
+
+  @media (max-width: 1200px) {
+    width: 50vw;
+  }
+
+  @media (max-width: 768px) {
+    width: 75vw;
+  }
+
+  @media (max-width: 480px) {
+    width: 100vw;
+  }
+`;

@@ -21,7 +21,9 @@ export const Home: React.FC = () => {
         </nav>
       </S.Header>
 
-      {activeTab === "list" ? <ListTeams /> : <CreateTeam />}
+      <S.MainContainer>
+        {activeTab === "list" ? <ListTeams /> : <CreateTeam />}
+      </S.MainContainer>
     </S.Home>
   );
 };
