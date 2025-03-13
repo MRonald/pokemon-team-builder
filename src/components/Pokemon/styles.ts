@@ -49,7 +49,7 @@ export const NumberContainer = styled.div`
 
   & > p {
     color: #fff;
-    font-size: clamp(12px, 2vw, 18px);
+    font-size: clamp(12px, 2vw, 2vw);
     font-weight: bold;
   }
 `;
