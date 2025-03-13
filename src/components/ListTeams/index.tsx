@@ -16,15 +16,15 @@ export const ListTeams: React.FC = () => {
   return (
     <S.Container>
       {teams.map((team, index) => (
-        <>
+        <div key={team.name + index}>
           <S.TextLabel>
             <p>{team.name}</p>
           </S.TextLabel>
 
-          <Team team={team} key={team.name} />
+          <Team team={team} />
 
           {index < teams.length - 1 && <hr />}
-        </>
+        </div>
       ))}
     </S.Container>
   );

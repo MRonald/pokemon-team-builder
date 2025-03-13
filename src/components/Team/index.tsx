@@ -5,38 +5,36 @@ import { Team as TeamInterface } from "../../types/app-types";
 
 interface TeamProps {
   team: TeamInterface;
+  selectedPokemon?: number;
+  selectPokemon?: (index: number) => void;
 }
 
-export const Team: React.FC<TeamProps> = ({ team }) => {
+export const Team: React.FC<TeamProps> = ({
+  team,
+  selectedPokemon,
+  selectPokemon,
+}) => {
+  const renderPokeballs = (pokemons: any[], startIndex: number) => {
+    return [...Array(3)].map((_, index) => {
+      const pokemon = pokemons[index];
+      return (
+        <Pokeball
+          key={`${pokemon?.name}-pokeball-${startIndex + index}`}
+          pokemon={pokemon}
+          onClick={() => selectPokemon && selectPokemon(startIndex + index)}
+          isSelected={selectedPokemon === startIndex + index}
+        />
+      );
+    });
+  };
+
   return (
     <>
       <S.PokeballsLeft>
-        <Pokeball
-          key={`${team.pokemons[0]?.name}-pokeball-0`}
-          pokemon={team.pokemons[0]}
-        />
-        <Pokeball
-          key={`${team.pokemons[1]?.name}-pokeball-1`}
-          pokemon={team.pokemons[1]}
-        />
-        <Pokeball
-          key={`${team.pokemons[2]?.name}-pokeball-2`}
-          pokemon={team.pokemons[2]}
-        />
+        {renderPokeballs(team.pokemons.slice(0, 3), 0)}
       </S.PokeballsLeft>
       <S.PokeballsRight>
-        <Pokeball
-          key={`${team.pokemons[3]?.name}-pokeball-3`}
-          pokemon={team.pokemons[3]}
-        />
-        <Pokeball
-          key={`${team.pokemons[4]?.name}-pokeball-4`}
-          pokemon={team.pokemons[4]}
-        />
-        <Pokeball
-          key={`${team.pokemons[5]?.name}-pokeball-5`}
-          pokemon={team.pokemons[5]}
-        />
+        {renderPokeballs(team.pokemons.slice(3, 6), 3)}
       </S.PokeballsRight>
     </>
   );

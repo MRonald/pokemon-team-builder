@@ -12,11 +12,11 @@ export const Home: React.FC = () => {
         <hr />
         <nav>
           {activeTab === "list" ? (
-            <S.Label onClick={() => setActiveTab("list")}>
+            <S.Label onClick={() => setActiveTab("create")}>
               Create New Team
             </S.Label>
           ) : (
-            <S.Label onClick={() => setActiveTab("create")}>Teams</S.Label>
+            <S.Label onClick={() => setActiveTab("list")}>Teams</S.Label>
           )}
         </nav>
       </S.Header>

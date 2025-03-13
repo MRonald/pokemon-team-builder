@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import * as S from "./styles";
-import { Pokeball } from "../Pokeball";
 import { Pokemon } from "../Pokemon";
 import { pokeapi } from "../../services/pokeapi";
 import { PokemonSummary } from "../../types/pokeapi-types";
@@ -13,6 +12,7 @@ import checkOpacity from "../../assets/imgs/check-opacity.svg";
 import trash from "../../assets/imgs/trash.svg";
 import trashOpacity from "../../assets/imgs/trash-opacity.svg";
 import { toast } from "react-toastify";
+import { Team } from "../Team";
 
 export const CreateTeam: React.FC = () => {
   const [canCheck, setCanCheck] = useState<boolean>(false);
@@ -146,52 +146,11 @@ export const CreateTeam: React.FC = () => {
         <img src={pencil} alt="Edit" onClick={() => setIsEditing(true)} />
       </S.TextLabel>
 
-      <S.PokeballsLeft>
-        <Pokeball
-          key={`${team[0]?.name}-pokeball-0`}
-          pokemon={team[0]}
-          onClick={() => selectPokemon(0)}
-          tabIndex={0}
-          isSelected={selectedPokemon === 0}
-        />
-        <Pokeball
-          key={`${team[1]?.name}-pokeball-1`}
-          pokemon={team[1]}
-          onClick={() => selectPokemon(1)}
-          tabIndex={1}
-          isSelected={selectedPokemon === 1}
-        />
-        <Pokeball
-          key={`${team[2]?.name}-pokeball-2`}
-          pokemon={team[2]}
-          onClick={() => selectPokemon(2)}
-          tabIndex={2}
-          isSelected={selectedPokemon === 2}
-        />
-      </S.PokeballsLeft>
-      <S.PokeballsRight>
-        <Pokeball
-          key={`${team[3]?.name}-pokeball-3`}
-          pokemon={team[3]}
-          onClick={() => selectPokemon(3)}
-          tabIndex={3}
-          isSelected={selectedPokemon === 3}
-        />
-        <Pokeball
-          key={`${team[4]?.name}-pokeball-4`}
-          pokemon={team[4]}
-          onClick={() => selectPokemon(4)}
-          tabIndex={4}
-          isSelected={selectedPokemon === 4}
-        />
-        <Pokeball
-          key={`${team[5]?.name}-pokeball-5`}
-          pokemon={team[5]}
-          onClick={() => selectPokemon(5)}
-          tabIndex={5}
-          isSelected={selectedPokemon === 5}
-        />
-      </S.PokeballsRight>
+      <Team
+        team={{ name: teamName, pokemons: team }}
+        selectedPokemon={selectedPokemon}
+        selectPokemon={(index: number) => selectPokemon(index)}
+      />
 
       <S.ActionButtons>
         <img
