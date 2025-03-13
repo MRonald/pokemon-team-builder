@@ -61,14 +61,12 @@ export const CreateTeam: React.FC = () => {
     }
   }
 
-  function addPokemon(name: string) {
+  function addPokemon(pokemon: PokemonSummary) {
     if (team.length === 6) return;
 
-    const selectedPokemon = pokemons.find((pokemon) => pokemon.name === name);
+    console.log("chamou o select pokemon", pokemon);
 
-    if (!selectedPokemon) return;
-
-    setTeam((prev) => [...prev, selectedPokemon]);
+    setTeam((prev) => [...prev, pokemon]);
   }
 
   function selectPokemon(index: number) {
@@ -150,6 +148,7 @@ export const CreateTeam: React.FC = () => {
         team={{ name: teamName, pokemons: team }}
         selectedPokemon={selectedPokemon}
         selectPokemon={(index: number) => selectPokemon(index)}
+        addPokemonToTeam={addPokemon}
       />
 
       <S.ActionButtons>
@@ -184,7 +183,7 @@ export const CreateTeam: React.FC = () => {
               name={pokemon.name}
               url={pokemon.url}
               key={pokemon.name}
-              onClick={() => addPokemon(pokemon.name)}
+              onClick={() => addPokemon(pokemon)}
               isSelected={team.some((item) => item.name === pokemon.name)}
             />
           ))}
