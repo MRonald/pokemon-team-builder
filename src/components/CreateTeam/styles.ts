@@ -24,6 +24,7 @@ export const ActionButtons = styled.div`
   & > img {
     width: 3rem;
     margin-left: 1rem;
+    cursor: pointer;
   }
 `;
 

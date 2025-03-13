@@ -4,6 +4,7 @@ export const Container = styled.div<{ isSelected: boolean }>`
   position: relative;
   width: 5rem;
   transition: transform 0.2s ease-out;
+  cursor: pointer;
 
   ${({ isSelected }) =>
     isSelected &&

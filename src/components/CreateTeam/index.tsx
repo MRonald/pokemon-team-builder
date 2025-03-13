@@ -64,8 +64,6 @@ export const CreateTeam: React.FC = () => {
   function addPokemon(pokemon: PokemonSummary) {
     if (team.length === 6) return;
 
-    console.log("chamou o select pokemon", pokemon);
-
     setTeam((prev) => [...prev, pokemon]);
   }
 

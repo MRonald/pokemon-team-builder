@@ -25,6 +25,7 @@ export const Container = styled.div`
   display: inline-block;
   position: relative;
   min-width: 100%;
+  cursor: pointer;
 
   & > .check-icon {
     position: absolute;
