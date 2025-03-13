@@ -5,14 +5,14 @@ import { pokeapi } from "../../services/pokeapi";
 import { PokemonSummary } from "../../types/pokeapi-types";
 import InfiniteScroll from "react-infinite-scroll-component";
 import * as db from "../../services/database";
+import { toast } from "react-toastify";
+import { Team } from "../Team";
 
 import pencil from "../../assets/imgs/pencil.svg";
 import check from "../../assets/imgs/check.svg";
 import checkOpacity from "../../assets/imgs/check-opacity.svg";
 import trash from "../../assets/imgs/trash.svg";
 import trashOpacity from "../../assets/imgs/trash-opacity.svg";
-import { toast } from "react-toastify";
-import { Team } from "../Team";
 
 export const CreateTeam: React.FC = () => {
   const [canCheck, setCanCheck] = useState<boolean>(false);

@@ -36,6 +36,19 @@ const GlobalStyle = createGlobalStyle`
     border: 0;
     border-top: 1px solid #333652;
   }
+
+  .generalLoader {
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    & img {
+      width: 10rem;
+    }
+  }
 `;
 
 export default GlobalStyle;

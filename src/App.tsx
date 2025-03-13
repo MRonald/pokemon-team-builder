@@ -4,6 +4,8 @@ import { setupDB } from "./services/database";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+import loader from "./assets/imgs/loader.svg";
+
 function App() {
   const [isDBReady, setIsDBReady] = useState<boolean>(false);
 
@@ -17,7 +19,11 @@ function App() {
   }, []);
 
   if (!isDBReady) {
-    return <div>Loading...</div>;
+    return (
+      <div className="generalLoader">
+        <img src={loader} alt="loader" />
+      </div>
+    );
   }
 
   return (
